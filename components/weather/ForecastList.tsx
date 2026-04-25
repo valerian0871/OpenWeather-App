@@ -1,3 +1,5 @@
+import WeatherIcon from "./WeatherIcon";
+
 type ForecastItem = {
     dt_txt: string;
     main: { temp: number };
@@ -20,11 +22,7 @@ export default function ForecastList({ items }: { items: ForecastItem[] }) {
                         })}
                     </p>
 
-                    <img
-                        src={`https://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                        alt={item.weather[0].description}
-                        className="w-10 h-10"
-                    />
+                    <WeatherIcon iconCode={item.weather[0].icon} className="w-10 h-10 text-blue-500" />
 
                     <p className="font-semibold text-gray-800">{Math.round(item.main.temp)}°C</p>
 

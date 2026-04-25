@@ -4,12 +4,14 @@ import { getCurrentWeather, getForecast } from "@/lib/weather";
 import WeatherCard from "@/components/weather/WeatherCard";
 import ForecastList from "@/components/weather/ForecastList";
 import SearchBar from "@/components/weather/SearchBar";
+import { getWeatherBackground } from "@/lib/weather-utils";
 
 type Props = {
-    searchParams: { city?: string };
+    searchParams: Promise<{ city?: string }>;
 };
 export default async function WeatherPage({ searchParams }: Props) {
-    const city = searchParams.city || "Lagos";
+    const params = await searchParams;
+    const city = params.city || "Lagos";
 
     try {
         const [current, forecast] = await Promise.all([
@@ -17,9 +19,10 @@ export default async function WeatherPage({ searchParams }: Props) {
             getForecast(city),
         ]);
         const forecastSlots = forecast.list.slice(0, 5);
+        const bgClass = getWeatherBackground(current.weather[0].icon);
 
         return (
-            <main className="min-h-screen bg-linear-to-b from-blue-50 to-white flex flex-col items-center py-12 gap-8 px-4">
+            <main className={`min-h-screen ${bgClass} flex flex-col items-center py-12 gap-8 px-4 transition-colors duration-700`}>
 
                 <header className="w-full max-w-2xl flex justify-between items-center">
                     <h1 className="text-2xl font-bold text-gray-800">Weather App</h1>
@@ -36,10 +39,10 @@ export default async function WeatherPage({ searchParams }: Props) {
 
     } catch {
         return (
-            <main className="min-h-screen flex flex-col items-center justify-center gap-4">
-                <p className="text-red-500 text-xl font-semibold">City not found.</p>
-                <p className="text-gray-400">Please try a different city name.</p>
-                <SearchBar />
+            <main className="min-h-screen bg-gray-900 flex flex-col items-center justify-center gap-4">
+                <p className="text-red-400 text-2xl font-bold">City not found</p>
+                <p className="text-gray-300">We couldn't find the weather for "{city}". Please try another search.</p>
+                <SearchBar inputClassName="text-white border-gray-600 bg-gray-800" />
             </main>
         );
     }

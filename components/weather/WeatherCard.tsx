@@ -1,3 +1,5 @@
+import WeatherIcon from "./WeatherIcon";
+
 type WeatherData = {
     name: string;
     main: { temp: number; humidity: number };
@@ -7,14 +9,13 @@ type WeatherData = {
 
 export default function WeatherCard({ data }: { data: WeatherData }) {
     const { name, main, weather, wind } = data;
-    const iconUrl = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
 
     return (
         <div className="bg-white rounded-2xl shadow-md p-6 flex flex-col gap-3 w-full max-w-sm">
             <h2 className="text-3xl font-bold text-gray-800">{name}</h2>
 
             <div className="flex items-center gap-2">
-                <img src={iconUrl} alt={weather[0].description} className="w-16 h-16" />
+                <WeatherIcon iconCode={weather[0].icon} className="w-16 h-16 text-blue-500" />
                 <p className="capitalize text-gray-500 text-lg">{weather[0].description}</p>
             </div>
 

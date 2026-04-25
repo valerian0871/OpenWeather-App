@@ -5,7 +5,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function SearchBar({ defaultCity = "" }: { defaultCity?: string }) {
+export default function SearchBar({ defaultCity = "", inputClassName = "text-black border-gray-300 bg-white" }: { defaultCity?: string, inputClassName?: string }) {
     const [city, setCity] = useState(defaultCity);
     const router = useRouter();
 
@@ -22,7 +22,7 @@ export default function SearchBar({ defaultCity = "" }: { defaultCity?: string }
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="Enter city..."
-                className="border border-gray-300 rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className={`border rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-400 ${inputClassName}`}
             />
             <button
                 type="submit"
