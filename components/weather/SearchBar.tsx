@@ -1,4 +1,5 @@
 // components/weather/SearchBar.tsx
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -21,11 +22,11 @@ export default function SearchBar({ defaultCity = "" }: { defaultCity?: string }
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="Enter city..."
-                className="border rounded px-4 py-2 w-64 focus:outline-none"
+                className="border border-gray-300 rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
             <button
                 type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
                 Search
             </button>
